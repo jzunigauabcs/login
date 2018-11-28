@@ -11,9 +11,10 @@
 				min-height: .3em;
 				padding: 10px;
 				text-align: center;
+				margin-bottom: 10px;
 			}
 			.login {
-				height: 100vh;
+				margin-top: 5em;
 			}
 		</style>
 	</head>
