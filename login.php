@@ -1,22 +1,26 @@
 <?php 
-	$datos = array(
-		array('usuario' => 'admin', 'password' => '123'),
-		array('usuario' => 'ana', 'password' => '321'),
-		array('usuario' => 'jose', 'password' => '987'),
-	);
-	
-	if(isset($_POST['usuario'])) {
-		$found = false;
-		foreach($datos as $usuario) {
-			if($_POST['usuario'] == $usuario['usuario'] && $_POST['password'] == $usuario['password']) {
-				$found = true;
-				break;
-			}
+	session_start();
+	include_once('db/DB.php');
+
+	if(isset($_POST['email'])) {
+		$email = $_POST['email'];
+		$password = $_POST['password'];
+
+		$query = "SELECT email, password FROM usuario WHERE email=:email AND password=:password";
+
+		$db = new DB();
+		$conn = $db->getConnection();
+		$stmt = $conn->prepare($query);
+		$stmt->bindParam(':email', $email);
+		$stmt->bindParam(':password', $password);
+		$stmt->execute();
+		$stmt->setFetchMode(PDO::FETCH_ASSOC);
+
+		if($result = $stmt->fetch()) {
+			$_SESSION['user'] = $result['email'];
+			header('location:home.php');
+		} else {
+			header('location:index.php?error=1');
 		}
-		
-		if($found)
-			echo '<h3>Bienvenido usuario</h3>';
-		else
-			header('Location: index.php?error=1');
 	}
  ?>
