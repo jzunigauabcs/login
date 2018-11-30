@@ -9,7 +9,7 @@
 			<?php endif; ?>
 			<div class="row align-items-center justify-content-center login">
 				<div class="jumbotron col-6">
-					<form action="insertUser.php" method="POST">
+					<form action="guardarUsuario.php" method="POST">
 						<div class="form-group">
 							<label for="">Nombre</label>
 							<input type="text" class="form-control" name="nombre">	
